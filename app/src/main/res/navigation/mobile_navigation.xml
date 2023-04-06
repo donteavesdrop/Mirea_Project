@@ -15,7 +15,13 @@
         android:id="@+id/nav_gallery"
         android:name="ru.mirea.zakharova.mirea_project.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery">
+
+        <action
+            android:id="@+id/action_gallery_to_slideshow"
+            app:destination="@id/nav_slideshow" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"

@@ -1,11 +1,15 @@
 package ru.mirea.zakharova.mirea_project.ui.gallery;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +22,7 @@ import ru.mirea.zakharova.mirea_project.R;
 public class GalleryFragment extends Fragment {
 
     private List<Album> albums;
+    private Button button;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -39,6 +44,13 @@ public class GalleryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         AlbumAdapter albumAdapter = new AlbumAdapter(albums);
         recyclerView.setAdapter(albumAdapter);
+        button = view.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_gallery_to_slideshow);
+            }
+        });
 
         return view;
     }
@@ -74,5 +86,7 @@ public class GalleryFragment extends Fragment {
                 R.drawable.untraveled_roads));
         return albums;
     }
+
+
 }
 

@@ -21,6 +21,14 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listen"
+            android:onClick="goListen"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/album_recycler_view"
             android:layout_width="match_parent"

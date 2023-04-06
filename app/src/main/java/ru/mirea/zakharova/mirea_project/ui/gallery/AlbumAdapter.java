@@ -1,16 +1,22 @@
 package ru.mirea.zakharova.mirea_project.ui.gallery;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ru.mirea.zakharova.mirea_project.MainActivity;
 import ru.mirea.zakharova.mirea_project.R;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
@@ -57,4 +63,5 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
             description = itemView.findViewById(R.id.description);
         }
     }
+
 }
