@@ -23,6 +23,7 @@ public class GalleryFragment extends Fragment {
 
     private List<Album> albums;
     private Button button;
+    private Button button2;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -45,10 +46,17 @@ public class GalleryFragment extends Fragment {
         AlbumAdapter albumAdapter = new AlbumAdapter(albums);
         recyclerView.setAdapter(albumAdapter);
         button = view.findViewById(R.id.button);
+        button2 = view.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_gallery_to_slideshow);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_gallery_to_player);
             }
         });
 

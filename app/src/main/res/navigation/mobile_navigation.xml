@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_gallery_to_slideshow"
             app:destination="@id/nav_slideshow" />
+        <action
+            android:id="@+id/action_gallery_to_player"
+            app:destination="@id/nav_music" />
 
     </fragment>
 
@@ -28,4 +31,9 @@
         android:name="ru.mirea.zakharova.mirea_project.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_music"
+        android:name="ru.mirea.zakharova.mirea_project.ui.music.MusicFragment"
+        android:label="@string/menu_player"
+        tools:layout="@layout/fragment_music" />
 </navigation>

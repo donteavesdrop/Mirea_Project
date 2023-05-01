@@ -9,5 +9,8 @@
 
     <string name="menu_home">Browser</string>
     <string name="menu_gallery">Info</string>
-    <string name="menu_slideshow">Listen</string>
+    <string name="menu_slideshow">Site</string>
+    <string name="menu_player">Player</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
