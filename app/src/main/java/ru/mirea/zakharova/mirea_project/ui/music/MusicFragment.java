@@ -1,10 +1,12 @@
 package ru.mirea.zakharova.mirea_project.ui.music;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,7 @@ public class MusicFragment extends Fragment {
 
 
     private FragmentMusicBinding binding;
-
+    private MediaPlayer mediaPlayer;
     private boolean play = false;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -88,7 +90,7 @@ public class MusicFragment extends Fragment {
                 }
                 else {
                     binding.imageView.setImageResource(R.color.black);
-                    binding.song.setText("Click play");
+                    binding.song.setText("Click to play");
                     getActivity().stopService(new Intent(getActivity(), PlayerService.class));
                     binding.btnPlay.setImageResource(com.google.android.material.R.drawable.btn_radio_on_mtrl);
                     play = false;
@@ -128,6 +130,32 @@ public class MusicFragment extends Fragment {
                 binding.song.setText(names[currentSongIndex]);
                 binding.btnPlay.setImageResource(com.google.android.material.R.drawable.btn_radio_off_mtrl);
                 play = true;
+            }
+        });
+        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
+                int x = (int) Math.ceil(progress / 1000f);
+
+                if (x != 0 && mediaPlayer != null && !mediaPlayer.isPlaying()) {
+                    onStop();
+                    MusicFragment.this.binding.seekBar.setProgress(0);
+                }
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.seekTo(seekBar.getProgress());
+                }
             }
         });
 

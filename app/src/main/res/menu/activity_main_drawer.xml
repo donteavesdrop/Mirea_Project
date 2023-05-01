@@ -21,5 +21,9 @@
             android:id="@+id/nav_music"
             android:icon="@android:drawable/ic_lock_silent_mode_off"
             android:title="@string/menu_player" />
+        <item
+            android:id="@+id/nav_player"
+            android:icon="@android:drawable/ic_lock_silent_mode_off"
+            android:title="@string/menu_player" />
     </group>
 </menu>
