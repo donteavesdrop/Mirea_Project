@@ -33,7 +33,7 @@ public class MusicFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private int currentSongIndex = 0;
-    private int[] songs = {R.raw.be_somebody, R.raw.broken_wing, R.raw.courtesy_call, R.raw.falls_apart, R.raw.phenomenon, R.raw.war_of_change};
+    public int[] songs = {R.raw.be_somebody, R.raw.broken_wing, R.raw.courtesy_call, R.raw.falls_apart, R.raw.phenomenon, R.raw.war_of_change};
     private String[] names = {"Be Somebody", "Broken Wing", "Courtesy Call", "Falls Apart", "Phenomenon", "War of Change"};
     private int[] pics = {R.drawable.the_end, R.drawable.the_flame_in, R.drawable.the_end, R.drawable.the_flame_in, R.drawable.phenomenon, R.drawable.the_end};
 
@@ -95,7 +95,6 @@ public class MusicFragment extends Fragment {
                 }
             }
         });
-
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +103,8 @@ public class MusicFragment extends Fragment {
                     currentSongIndex = 0;
                 }
                 Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
-                serviceIntent.putExtra("song", songs[currentSongIndex]);
+                serviceIntent.putExtra("songName", names[currentSongIndex]); // добавить название песни
+                serviceIntent.putExtra("songId", songs[currentSongIndex]); // добавить id песни
                 ContextCompat.startForegroundService(getActivity(), serviceIntent);
                 binding.imageView.setImageResource(pics[currentSongIndex]);
                 binding.song.setText(names[currentSongIndex]);
@@ -121,7 +121,8 @@ public class MusicFragment extends Fragment {
                     currentSongIndex = songs.length - 1;
                 }
                 Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
-                serviceIntent.putExtra("song", songs[currentSongIndex]);
+                serviceIntent.putExtra("songName", names[currentSongIndex]); // добавить название песни
+                serviceIntent.putExtra("songId", songs[currentSongIndex]); // добавить id песни
                 ContextCompat.startForegroundService(getActivity(), serviceIntent);
                 binding.imageView.setImageResource(pics[currentSongIndex]);
                 binding.song.setText(names[currentSongIndex]);
@@ -129,6 +130,41 @@ public class MusicFragment extends Fragment {
                 play = true;
             }
         });
+
+
+//        binding.btnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentSongIndex++;
+//                if (currentSongIndex >= songs.length) {
+//                    currentSongIndex = 0;
+//                }
+//                Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
+//                serviceIntent.putExtra(names[currentSongIndex], songs[currentSongIndex]);
+//                ContextCompat.startForegroundService(getActivity(), serviceIntent);
+//                binding.imageView.setImageResource(pics[currentSongIndex]);
+//                binding.song.setText(names[currentSongIndex]);
+//                binding.btnPlay.setImageResource(com.google.android.material.R.drawable.btn_radio_off_mtrl);
+//                play = true;
+//            }
+//        });
+//
+//        binding.btnPrevious.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentSongIndex--;
+//                if (currentSongIndex < 0) {
+//                    currentSongIndex = songs.length - 1;
+//                }
+//                Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
+//                serviceIntent.putExtra(names[currentSongIndex], songs[currentSongIndex]);
+//                ContextCompat.startForegroundService(getActivity(), serviceIntent);
+//                binding.imageView.setImageResource(pics[currentSongIndex]);
+//                binding.song.setText(names[currentSongIndex]);
+//                binding.btnPlay.setImageResource(com.google.android.material.R.drawable.btn_radio_off_mtrl);
+//                play = true;
+//            }
+//        });
 
         return root;
     }
