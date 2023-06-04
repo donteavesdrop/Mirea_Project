@@ -37,8 +37,8 @@
         android:label="@string/menu_player"
         tools:layout="@layout/fragment_music" />
     <fragment
-        android:id="@+id/nav_player"
-        android:name="ru.mirea.zakharova.mirea_project.ui.player.PlayerFragment"
-        android:label="@string/menu_player"
-        tools:layout="@layout/fragment_player" />
+        android:id="@+id/nav_sensor"
+        android:name="ru.mirea.zakharova.mirea_project.ui.sensor.SensorManagerFragment"
+        android:label="fragment_sensor_manager"
+        tools:layout="@layout/fragment_sensor_manager" />
 </navigation>
