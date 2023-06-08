@@ -1,5 +1,6 @@
 package ru.mirea.zakharova.mirea_project.ui.map;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +25,6 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import ru.mirea.zakharova.mirea_project.R;
 import ru.mirea.zakharova.mirea_project.databinding.FragmentMapBinding;
 
 public class MapFragment extends Fragment {
@@ -34,11 +34,12 @@ public class MapFragment extends Fragment {
     private FragmentMapBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMapBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -63,28 +64,16 @@ public class MapFragment extends Fragment {
             locationNewOverlay.enableMyLocation();
             mapView.getOverlays().add(locationNewOverlay);
 
-            locationNewOverlay.runOnFirstFix(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        double lat = locationNewOverlay.getMyLocation().getLatitude();
-                        double lon = locationNewOverlay.getMyLocation().getLongitude();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                IMapController mapController = mapView.getController();
-//                                mapController.setZoom(1.0);
-//                                GeoPoint point = new GeoPoint(lat, lon);
-//                                mapController.setCenter(point);
-                                IMapController mapController = mapView.getController();
-                                mapController.setZoom(10.0);
-                                GeoPoint startPoint = new GeoPoint(55.75356, 37.62139);
-                                mapController.setCenter(startPoint);
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            locationNewOverlay.runOnFirstFix(() -> {
+                try {
+                    getActivity().runOnUiThread(() -> {
+                        IMapController mapController = mapView.getController();
+                        mapController.setZoom(5.0);
+                        GeoPoint startPoint = new GeoPoint(55.75356, 37.62139);
+                        mapController.setCenter(startPoint);
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -99,26 +88,26 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().add(scaleBarOverlay);
 
         Marker marker = new Marker(mapView);
-        marker.setPosition(new GeoPoint(55.6704, 37.481));
+        marker.setPosition(new GeoPoint(55.710246, 37.5991637));
         marker.setOnMarkerClickListener((marker1, mapView) -> {
-            Toast.makeText(mapView.getContext(), "ДЕПО", Toast.LENGTH_SHORT).show();
-            textView.setText("метка 1");
+            Toast.makeText(mapView.getContext(), "Moscow - Yotaspace", Toast.LENGTH_SHORT).show();
+            textView.setText("A wood-finished concert venue with comfortable sofas, where musicians from all over the world perform.");
             return true;
         });
         mapView.getOverlays().add(marker);
         marker.setIcon(ResourcesCompat.getDrawable(getResources(), org.osmdroid.library.R.drawable.osm_ic_follow_me_on, null));
-        marker.setTitle("MIREA RTU");
+        marker.setTitle("Moscow - Yotaspace");
 
         Marker marker2 = new Marker(mapView);
-        marker2.setPosition(new GeoPoint(55.79369, 37.70121));
+        marker2.setPosition(new GeoPoint(59.9139778, 30.3239248));
         marker2.setOnMarkerClickListener((marker21, mapView) -> {
-            Toast.makeText(mapView.getContext(), "ДЕПО", Toast.LENGTH_SHORT).show();
-            textView.setText("метка 2");
+            Toast.makeText(mapView.getContext(), "St. Petersburg - Cosmonaut", Toast.LENGTH_SHORT).show();
+            textView.setText("A modern two-level rock-club with a dance floor for 1500 people, as well as a VIP-zone and a restaurant on the second floor.");
             return true;
         });
         mapView.getOverlays().add(marker2);
         marker2.setIcon(ResourcesCompat.getDrawable(getResources(), org.osmdroid.library.R.drawable.osm_ic_follow_me_on, null));
-        marker2.setTitle("MIREA RTU");
+        marker2.setTitle("St. Petersburg - Cosmonaut");
 
     }
 

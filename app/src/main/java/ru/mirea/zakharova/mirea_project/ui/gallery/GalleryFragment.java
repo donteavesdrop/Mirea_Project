@@ -1,19 +1,33 @@
 package ru.mirea.zakharova.mirea_project.ui.gallery;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,12 +92,102 @@ public class GalleryFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_gallery_to_mapr);
             }
         });
-
-
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(v -> showCreateRecordDialog());
         return view;
     }
+    private void showCreateRecordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Создание записи")
+                .setItems(new CharSequence[]{"PDF", "TXT"}, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            createAndSaveFileAsPdf();
+                            break;
+                        case 1:
+                            createAndSaveFileAsTxt();
+                            break;
+                    }
+                })
+                .setNegativeButton("Отмена", null)
+                .show();
+    }
+    private void createAndSaveFileAsPdf() {
+        // Создание и сохранение файла в формате PDF
+        StringBuilder sb = new StringBuilder();
+        for (Album album : albums) {
+            sb.append(album.getTitle()).append("\n");
+            sb.append(album.getDescription()).append("\n");
+            sb.append("\n");
+        }
+        String combinedText = sb.toString();
 
-    private List<Album> getAlbums() {
+        // Создание документа PDF
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+
+        // Разбивка текста на строки
+        String[] lines = combinedText.split("\n");
+        float y = 0;
+        for (String line : lines) {
+            canvas.drawText(line, 10, y, paint);
+            y += paint.descent() - paint.ascent();
+        }
+
+        document.finishPage(page);
+
+        // Указание пути и имени файла
+        String fileName = "my_document.pdf";
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/" + fileName;
+
+        // Сохранение документа в файл
+        try {
+            File file = new File(filePath);
+            FileOutputStream fos = new FileOutputStream(file);
+            document.writeTo(fos);
+            document.close();
+            fos.close();
+            Toast.makeText(requireContext(), "Файл сохранен: " + filePath, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Ошибка при сохранении файла", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void createAndSaveFileAsTxt() {
+        // Создание и сохранение файла в формате TXT
+        StringBuilder sb = new StringBuilder();
+        for (Album album : albums) {
+            sb.append(album.getTitle()).append("\n");
+            sb.append(album.getDescription()).append("\n");
+            sb.append("\n");
+        }
+        String combinedText = sb.toString();
+
+        // Указание пути и имени файла
+        String fileName = "my_document.txt";
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/" + fileName;
+
+        // Сохранение текста в файл
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            writer.write(combinedText);
+            writer.flush();
+            writer.close();
+            Toast.makeText(requireContext(), "Файл сохранен: " + filePath, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Ошибка при сохранении файла", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+            private List<Album> getAlbums() {
         List<Album> albums = new ArrayList<>();
         albums.add(new Album("Set It Off", "2000",
                 "This album features a more refined sound, with a focus on hard rock and alternative metal. It includes the popular tracks \"Rawkfist\" and \"Move.\"",
