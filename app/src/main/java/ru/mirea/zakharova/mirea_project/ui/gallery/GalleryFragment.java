@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -24,6 +25,7 @@ public class GalleryFragment extends Fragment {
     private List<Album> albums;
     private Button button;
     private Button button2;
+    private Button button4;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -47,6 +49,17 @@ public class GalleryFragment extends Fragment {
         recyclerView.setAdapter(albumAdapter);
         button = view.findViewById(R.id.button);
         button2 = view.findViewById(R.id.button2);
+        button4 = view.findViewById(R.id.button4);
+        TextView textView = view.findViewById(R.id.textView2); // Получаем ссылку на TextView из макета
+        String text = "Thousand Foot Krutch have kept their word after all - after the cancelled concerts in Russian capitals in the fall of 2015, the band announced new dates: in March the Canadians will play two big shows of their greatest hits in Moscow's Yotaspace club and St. Petersburg's Cosmonaut.\n" +
+                "\n" +
+                "One of the leading bands in alternative music and so-called \"Christian rock,\" Thousand Foot Krutch first visited Russia in 2014 with a four-city tour, where they presented their album Oxygen: Inhale. This time they plan to please the audience with their favorite hits - many fans have already appreciated the tour set list and called it a \"dream set list\"! In addition, the band also plans to surprise with fresh new releases, such as the single \"Born Again,\" which was released at the end of 2015.\n" +
+                "\n" +
+                "The concerts will take place:\n" +
+                "20.03.2016 - Moscow - Yotaspace \n" +
+                "21.03.2016 - St. Petersburg - Cosmonaut "; // Текст, который вы хотите отобразить
+
+        textView.setText(text);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +72,13 @@ public class GalleryFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_gallery_to_player);
             }
         });
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_gallery_to_mapr);
+            }
+        });
+
 
         return view;
     }

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_gallery_to_player"
             app:destination="@id/nav_music" />
+        <action
+            android:id="@+id/action_gallery_to_mapr"
+            app:destination="@id/nav_map" />
 
     </fragment>
 
@@ -41,4 +44,14 @@
         android:name="ru.mirea.zakharova.mirea_project.ui.sensor.SensorManagerFragment"
         android:label="fragment_sensor_manager"
         tools:layout="@layout/fragment_sensor_manager" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="ru.mirea.zakharova.mirea_project.ui.profile.UserProfile"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="ru.mirea.zakharova.mirea_project.ui.map.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map"/>
 </navigation>
