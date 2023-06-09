@@ -42,7 +42,6 @@ public class SensorManagerFragment extends Fragment {
                 new String[]{"Name", "Value"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(mHistory);
-
         return rootView;
     }
 

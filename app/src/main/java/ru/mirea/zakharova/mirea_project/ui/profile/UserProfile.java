@@ -53,6 +53,7 @@ import java.util.Locale;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
+import ru.mirea.zakharova.mirea_project.R;
 import ru.mirea.zakharova.mirea_project.databinding.FragmentUserProfileBinding;
 
 public class UserProfile extends Fragment {

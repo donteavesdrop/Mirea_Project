@@ -35,6 +35,7 @@ public class Registration extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
         binding.verifyEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,8 +200,16 @@ public class Registration extends AppCompatActivity {
         return true;
     }
 
+//    private void openMainApplication() {
+//        Intent intent = new Intent(Registration.this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//        finish();
+//    }
     private void openMainApplication() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(Registration.this, MainActivity.class);
+        Log.d(TAG, "Opening MainActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

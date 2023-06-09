@@ -1,6 +1,9 @@
 package ru.mirea.zakharova.mirea_project;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "MainActivity onCreate");
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_music, R.id.nav_sensor, R.id.nav_profile
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_music, R.id.nav_sensor,R.id.nav_sensor2, R.id.nav_profile
         )
                 .setOpenableLayout(drawer)
                 .build();
